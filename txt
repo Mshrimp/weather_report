@@ -1,0 +1,16 @@
+参考资料：
+https://blog.csdn.net/zhengnianli/article/details/95070044
+
+
+https://api.seniverse.com/v3/weather/now.json?key=your_private_key&location=shenzhen&language=zh-Hans&unit=c
+
+
+{"results":[{"location":{"id":"WS10730EM8EV","name":"深圳","country":"CN","path":"深圳,深圳,广东,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"},"now":{"text":"多云","code":"4","temperature":"30"},"last_update":"2020-06-28T19:40:00+08:00"}]}
+
+
+private:
+SBx4_FIjI6Y5CDu4V
+
+public:
+PFLRvkJQo66nci7AD
+
