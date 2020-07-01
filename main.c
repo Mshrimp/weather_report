@@ -7,5 +7,9 @@ int main(int argc, char *argv[])
 
 	parse_weather_data();
 
+	show_weather_location();
+	show_weather_daily();
+	show_weather_update();
+
 	return 0;
 }

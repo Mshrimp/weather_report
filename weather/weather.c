@@ -64,13 +64,7 @@ int get_weather_from_web(void)
 		perror("connect failed!\n");
 		return ret;
 	}
-
 	printf("connect success!\n");
-
-	//memset(package, 0, 256);
-	//sprintf(package, GET_REQUEST_PACKAGE_FMT, TIME, PRIVATE_KEY, LOCATION);
-	//printf("%s, package: %s\n", __func__, package);
-	//printf("len: %ld\n", strlen(package));
 
 	ret = send(clnt_fd, package, strlen(package), 0);
 	printf("send ret: %d\n", ret);
@@ -93,107 +87,127 @@ int get_weather_from_web(void)
 	return 0;
 }
 
-int show_weather(void)
+int parse_weather_location(cJSON *cJSON_location, location_t *location)
 {
-	printf(" ");
+	cJSON *json = NULL;
+	//printf("%s, %s\n", __func__, cJSON_Print(cJSON_location));
+
+	json = cJSON_GetObjectItem(cJSON_location, "id");
+	strncpy(location->id, cJSON_GetStringValue(json), 32);
+
+	json = cJSON_GetObjectItem(cJSON_location, "name");
+	strncpy(location->name, cJSON_GetStringValue(json), 32);
+
+	json = cJSON_GetObjectItem(cJSON_location, "country");
+	strncpy(location->country, cJSON_GetStringValue(json), 32);
+
+	json = cJSON_GetObjectItem(cJSON_location, "path");
+	strncpy(location->path, cJSON_GetStringValue(json), 32);
+
+	json = cJSON_GetObjectItem(cJSON_location, "timezone");
+	strncpy(location->timezone, cJSON_GetStringValue(json), 32);
+
+	json = cJSON_GetObjectItem(cJSON_location, "timezone_offset");
+	strncpy(location->timezone_offset, cJSON_GetStringValue(json), 32);
 
 	return 0;
 }
 
-int parse_weather_location(cJSON *cJSON_location, location_t *location)
+int show_weather_location(void)
 {
-	cJSON *json = NULL;
-	printf("%s, %s\n", __func__, cJSON_Print(cJSON_location));
-
-	json = cJSON_GetObjectItem(cJSON_location, "id");
-	strncpy(location->id, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, location->id);
-
-	json = cJSON_GetObjectItem(cJSON_location, "name");
-	strncpy(location->name, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, location->name);
-
-	json = cJSON_GetObjectItem(cJSON_location, "country");
-	strncpy(location->country, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, location->country);
-
-	json = cJSON_GetObjectItem(cJSON_location, "path");
-	strncpy(location->path, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, location->path);
-
-	json = cJSON_GetObjectItem(cJSON_location, "timezone");
-	strncpy(location->timezone, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, location->timezone);
-
-	json = cJSON_GetObjectItem(cJSON_location, "timezone_offset");
-	strncpy(location->timezone_offset, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, location->timezone_offset);
-
-	printf("%s, %s\n", __func__, cJSON_GetStringValue(json));
-
+	printf("%s\n", weather.location.id);
+	printf("%s\n", weather.location.name);
+	printf("%s\n", weather.location.country);
+	printf("%s\n", weather.location.path);
+	printf("%s\n", weather.location.timezone);
+	printf("%s\n", weather.location.timezone_offset);
 	return 0;
 }
 
 int parse_weather_daily_data(cJSON *cJSON_daily, weather_day_t *daily)
 {
 	cJSON *json = NULL;
-	printf("%s, %s\n", __func__, cJSON_Print(cJSON_daily));
+	//printf("%s, %s\n", __func__, cJSON_Print(cJSON_daily));
 
 	json = cJSON_GetObjectItem(cJSON_daily, "date");
 	strncpy(daily->date, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->date);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "text_day");
 	strncpy(daily->text_day, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->text_day);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "code_day");
 	strncpy(daily->code_day, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->code_day);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "text_night");
 	strncpy(daily->text_night, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->text_night);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "code_night");
 	strncpy(daily->code_night, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->code_night);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "high");
 	strncpy(daily->high, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->high);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "low");
 	strncpy(daily->low, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->low);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "rainfall");
 	strncpy(daily->rainfall, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->rainfall);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "precip");
 	strncpy(daily->precip, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->precip);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "wind_direction");
 	strncpy(daily->wind_direction, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->wind_direction);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "wind_direction_degree");
 	strncpy(daily->wind_direction_degree, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->wind_direction_degree);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "wind_speed");
 	strncpy(daily->wind_speed, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->wind_speed);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "wind_scale");
 	strncpy(daily->wind_scale, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->wind_scale);
 
 	json = cJSON_GetObjectItem(cJSON_daily, "humidity");
 	strncpy(daily->humidity, cJSON_GetStringValue(json), 32);
-	printf("%s, %s\n", __func__, daily->humidity);
+
+	return 0;
+}
+
+int show_weather_daily(void)
+{
+	int i = 0;
+
+	for (i = 0; i < 3; i++) {
+		printf("%s\n", weather.daily[i].date);
+		printf("%s\n", weather.daily[i].text_day);
+		printf("%s\n", weather.daily[i].code_day);
+		printf("%s\n", weather.daily[i].text_night);
+		printf("%s\n", weather.daily[i].code_night);
+		printf("%s\n", weather.daily[i].high);
+		printf("%s\n", weather.daily[i].low);
+		printf("%s\n", weather.daily[i].rainfall);
+		printf("%s\n", weather.daily[i].precip);
+		printf("%s\n", weather.daily[i].wind_direction);
+		printf("%s\n", weather.daily[i].wind_direction_degree);
+		printf("%s\n", weather.daily[i].wind_speed);
+		printf("%s\n", weather.daily[i].wind_scale);
+		printf("%s\n", weather.daily[i].humidity);
+	}
+
+	return 0;
+}
+
+int parse_weather_update(cJSON *cJSON_update, char *last_update)
+{
+	strncpy(last_update, cJSON_GetStringValue(cJSON_update), 32);
+
+	return 0;
+}
+
+int show_weather_update(void)
+{
+	printf("%s\n", weather.last_update);
 
 	return 0;
 }
@@ -212,7 +226,7 @@ int parse_weather_data(void)
 		perror("cJSON_Parse failed!\n");
 		return -1;
 	}
-	printf("%s\n", cJSON_Print(json));
+	//printf("%s\n", cJSON_Print(json));
 
 	json_init = cJSON_GetObjectItem(json, "results");
 	json = cJSON_GetArrayItem(json_init, 0);
@@ -227,6 +241,9 @@ int parse_weather_data(void)
 		daily[i] = cJSON_GetArrayItem(daily_array, i);
 		parse_weather_daily_data(daily[i], &weather.daily[i]);
 	}
+
+	json = cJSON_GetObjectItem(json, "last_update");
+	parse_weather_update(json, weather.last_update);
 
 	cJSON_Delete(json_init);
 

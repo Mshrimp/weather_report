@@ -8,14 +8,7 @@ typedef struct {
 	char path[32];
 	char timezone[32];
 	char timezone_offset[32];
-	/*
-	char text[32];
-	char code[32];
-	char temperature[32];
-	char update_time[32];
-	*/
 } location_t;
-
 
 typedef struct {
 	char date[32];
@@ -23,15 +16,15 @@ typedef struct {
 	char code_day[32];
 	char text_night[32];
 	char code_night[32];
-	char high[4];
-	char low[4];
-	char rainfall[8];
+	char high[32];
+	char low[32];
+	char rainfall[32];
 	char precip[32];
 	char wind_direction[32];
-	char wind_direction_degree[16];
-	char wind_speed[8];
-	char wind_scale[4];
-	char humidity[4];
+	char wind_direction_degree[32];
+	char wind_speed[32];
+	char wind_scale[32];
+	char humidity[32];
 } weather_day_t;
 
 typedef struct {
@@ -43,6 +36,12 @@ typedef struct {
 
 int get_weather_from_web(void);
 int parse_weather_data(void);
+
+int show_weather_location(void);
+int show_weather_daily(void);
+int show_weather_update(void);
+
+
 
 #endif /* __WEATHER_H__ */
 
