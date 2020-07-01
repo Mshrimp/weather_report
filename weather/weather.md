@@ -20,10 +20,6 @@ Port：80
 
 获取私钥，需要先在心知天气网注册一个账号，并在产品管理中添加一个免费版天气项；
 
-[https://github.com/Mshrimp/weather_report/blob/master/weather/weather/%E5%BF%83%E7%9F%A5%E5%A4%A9%E6%B0%94%E7%A7%81%E9%92%A5.png](https://github.com/Mshrimp/weather_report/blob/master/weather/weather/心知天气私钥.png)
-
-
-
 ![心知天气私钥](weather/心知天气私钥.png)
 
 
@@ -60,8 +56,6 @@ PFLRvkJQo66nci7AD
 在“天气类”-->“天气实况”中，有较为详细的操作说明；
 
 https://docs.seniverse.com/api/weather/now.html
-
-[https://github.com/Mshrimp/weather_report/blob/master/weather/weather/%E5%BF%83%E7%9F%A5%E5%A4%A9%E6%B0%94%E5%AE%9E%E4%BE%8B.png](https://github.com/Mshrimp/weather_report/blob/master/weather/weather/心知天气实例.png)
 
 ![心知天气实例](weather/心知天气实例.png)
 
