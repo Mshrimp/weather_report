@@ -1,5 +1,24 @@
-all:
-	gcc weather_report.c cJSON.c -o report
+
+TARGET = report
+
+CC = gcc
+CFLAGS = -Wall
+
+
+INCLUDE = -I./cjson -I./weather
+
+SOURCE = main.c	\
+		 cjson/cJSON.c	\
+		 weather/weather.c
+
+OBJECTS = $(SOURCE:.c=.o)
+
+$(TARGET):$(OBJECTS)
+	$(CC) $^ -o $@
+
+%.o:%.c
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
 
 clean:
-	@rm report -rf
+	@rm $(TARGET) $(OBJECTS) -rf

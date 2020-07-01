@@ -25,6 +25,7 @@ weather_t weather;
 int get_request_package(void)
 {
 	memset(package, 0, 256);
+	//sprintf(package, GET_REQUEST_PACKAGE_FMT, NOW, PRIVATE_KEY, LOCATION);
 	sprintf(package, GET_REQUEST_PACKAGE_FMT, DAILY, PRIVATE_KEY, LOCATION);
 
 	printf("%s, package: %s\n", __func__, package);
@@ -37,7 +38,7 @@ int get_weather_from_web(void)
 	int clnt_fd = -1;
 	struct sockaddr_in serv_addr;
 	int read_cnt = 0;
-	int count = 0;
+	//int count = 0;
 	int ret = -1;
 
 	get_request_package();
@@ -94,7 +95,7 @@ int get_weather_from_web(void)
 
 int show_weather(void)
 {
-	printf("");
+	printf(" ");
 
 	return 0;
 }
@@ -211,6 +212,7 @@ int parse_weather_data(void)
 		perror("cJSON_Parse failed!\n");
 		return -1;
 	}
+	printf("%s\n", cJSON_Print(json));
 
 	json_init = cJSON_GetObjectItem(json, "results");
 	json = cJSON_GetArrayItem(json_init, 0);
@@ -227,15 +229,6 @@ int parse_weather_data(void)
 	}
 
 	cJSON_Delete(json_init);
-
-	return 0;
-}
-
-int main(int argc, char *argv[])
-{
-	get_weather_from_web();
-
-	parse_weather_data();
 
 	return 0;
 }

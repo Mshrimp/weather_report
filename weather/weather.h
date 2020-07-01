@@ -41,5 +41,8 @@ typedef struct {
 } weather_t;
 
 
+int get_weather_from_web(void);
+int parse_weather_data(void);
+
 #endif /* __WEATHER_H__ */
 
