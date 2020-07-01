@@ -2,7 +2,7 @@
 
 
 
-### 心知天气
+### [心知天气](https://www.seniverse.com/)
 
 https://www.seniverse.com/
 
@@ -53,9 +53,7 @@ PFLRvkJQo66nci7AD
 
 
 
-在“天气类”-->“天气实况”中，有较为详细的操作说明；
-
-https://docs.seniverse.com/api/weather/now.html
+在“天气类”-->“[天气实况](https://docs.seniverse.com/api/weather/now.html)”中，有较为详细的操作说明；
 
 ![心知天气实例](weather/心知天气实例.png)
 
